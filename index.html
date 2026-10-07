@@ -344,7 +344,7 @@ $('bRst').onclick=function(){if(!confirm('هتتمسح كل الأرقام عن�
 /* ---------- boot: local first, then shared db ---------- */
 try{var raw=localStorage.getItem(LK);if(raw){var o=JSON.parse(raw);if(o&&o.D){D=o.D;goal=o.goal||0;endM=o.endM||''}}}catch(e){}
 $('goal').value=goal||'';
-setStatus('محفوظ على الجهاز ده بس. بيتحول لمشترك أول ما يتوصل.');
+setStatus('');
 fullRender();
 
 function fbDB(){
@@ -362,7 +362,7 @@ function connect(){
     var p=user&&user.can?user.can('data.write'):Promise.resolve(null);
     return p.catch(function(){return null}).then(function(w){
       if(w===false){canWrite=false;setStatus('عندك صلاحية قراءة بس. اطلب صلاحية مساهم عشان تضيف.')}
-      else setStatus('مشترك (Firebase): أي إضافة منك أو من التاني بتظهر عند الاتنين فورًا.');
+      else setStatus('');
       [0,1].forEach(function(i){
         db.collection(i?'yassin':'karam').onSnapshot(function(snap){
           var m={};snap.docs.forEach(function(d){var x=d.data();if(x&&x.v>0)m[d.id]=+x.v});
